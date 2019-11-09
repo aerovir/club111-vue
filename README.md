@@ -1,4 +1,4 @@
-# vue-club111-landing
+# club111-vue
 
 > A Vue.js project
 

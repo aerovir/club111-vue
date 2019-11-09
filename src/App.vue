@@ -5,7 +5,7 @@
         <h2 class="container">Вплавь, на велосипеде и бегом</h2>
     </header>
 
-    <button id="go-top" class="btn btn-info" @click='onTop'>Наверх</button>
+    <button id="go-top" class="btn btn-info" v-scroll="handleScroll" @click="onTop">Наверх</button>
 
     <nav class="navbar sticky-top navbar-expand-lg navbar-light bg-even">
         <div class="container">
@@ -204,18 +204,33 @@
 export default {
   name: 'app',
   data () {
-   
+    return {
+      show: true
+    }
   },
   methods: {
-    onTop: function() {
-      window.location.href = "#"
+    handleScroll: function (evt, el) {
+      if (window.scrollY < 200) {
+        el.setAttribute(
+          'style',
+          'transition: opacity .5s; opacity: 0;'
+        )
+    } else {
+        el.setAttribute(
+          'style',
+          'display: inline; transition: opacity 1s; opacity: 1;'
+      )
+      }
+    },
+    onTop: function () {
+      window.location.href = '#'
     }
   }
 }
 </script>
 
 <style>
-:root {
+  :root {
     --lh: 1.4rem;
   }
 
@@ -233,11 +248,12 @@ html {
 }
 
 #go-top {
-    /* display: none; */
+    display: none;
     position: fixed;
     bottom: 20px;
     right: 20px;
     z-index: 2;
+    transition: 1s;
 }
 
 .navbar {
@@ -264,5 +280,11 @@ html {
     height: 45px;
     margin-top: 15px;
     margin-bottom: 5px;
+}
+.fade-enter-active, .fade-leave-active {
+  transition: opacity .5s;
+}
+.fade-enter, .fade-leave-to /* .fade-leave-active до версии 2.1.8 */ {
+  opacity: 0;
 }
 </style>
